@@ -20,10 +20,10 @@
         <p>Espera pe, oye conchatu...</p>
     </div>
 
-    <div class="ae-masonry ae-masonry-md-2 ae-masonry-xl-4" *ngIf="!infoCriptoService.cargando">
+    <div class="ae-masonry ae-masonry-md-6 ae-masonry-xl-10" *ngIf="!infoCriptoService.cargando">
 
-        <a *ngFor="let item of infoCriptoService.criptos" [routerLink]="['/item',item.cod]" class="rk-item ae-masonry__item"><img
-                src='{{item.image_url}}' alt="">
+        <a *ngFor="let item of infoCriptoService.criptos" [routerLink]="['/item',item.cod]" class="rk-item ae-masonry__item">
+            <img src='{{item.image_url}}' alt="">
             <div class="item-meta">
                 <h2>{{ item.name }}</h2>
                 <p>{{ item.latest }}</p>

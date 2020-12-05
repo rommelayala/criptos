@@ -1,4 +1,15 @@
 <div class="ae-container-fluid ae-container-fluid--inner rk-main">
+  
+  <div class="ae-grid au-xs-ta-center au-mb-4">
+  <div *ngFor="let item of infoCriptoService.criptos" class="ae-grid__item item-lg-4 ae-kappa au-mb-3">
+    <div class="ae-grid__item--alt item-lg-4">
+      <h6 class="ae-u-boldest" >{{item.name}}</h6>
+      <img src='{{item.image_url}}' alt="">
+      <p class="au-lh-3">{{item.latest}} {{item.currency}}</p>
+    </div>
+  </div>
+</div>
+  
   <div class="ae-grid au-xs-ta-center au-mb-4">
     
     <div *ngFor="let persona of infoService.equipo" class="ae-grid__item item-lg-4 ae-kappa au-mb-3"><img

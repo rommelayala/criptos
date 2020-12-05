@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CriptosService } from '../../services/info-criptos.service';
+import { CriptosService } from 'src/app/services/criptos.service';
+import { InfoCriptosService } from '../../services/info-criptos.service';
 
 @Component({
   selector: 'app-criptos',
@@ -8,7 +9,10 @@ import { CriptosService } from '../../services/info-criptos.service';
 })
 export class CriptosComponent implements OnInit {
 
-  constructor(public infoCriptoService: CriptosService) {  }
+  constructor(public infoCriptoService: InfoCriptosService,
+              public criptoService: CriptosService) {  
+               
+              }
 
   ngOnInit(): void {
   }

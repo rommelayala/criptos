@@ -1,34 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Producto } from '../interfaces/producto.interface';
-import { Criptos } from '../interfaces/info-cripto.interface';
-
-
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CriptosService {
+export class InfoCriptosService {
 
   cargando = true;
   productos: Producto[];
   productosFiltrado: Producto[] = [];
   criptos: any[];
-  criptosPrueba: any[];
-
-  constructor(private http: HttpClient) {
+  criptosValues: any[];
+ 
+    constructor(private http: HttpClient) {
     this.cargarCriptos();
   }
 
-  private cargarCriptos() {
+  public cargarCriptos() {
     return new Promise((resolve, reject) => {
-      this.http.get('https://www.coinbase.com/api/v2/assets/search?base=EUR&country=ES&limit=100')
+      this.http.get('https://www.coinbase.com/api/v2/assets/search?base=usd&country=ES&limit=100')
         .subscribe((resp: any[]) => {
-          this.criptosPrueba = Object.values(resp);
-          this.criptos = this.criptosPrueba[1];
+          // guarda los values del response
+          this.criptosValues = Object.values(resp);
+          // del array de 2 elemetos dame el segundo elemento y guaradlos en criptos
+          this.criptos = this.criptosValues[1];
           this.cargando = false;
-          console.log(this.criptos);
+          console.log(this.criptos.length);
           resolve();
         });
     });
