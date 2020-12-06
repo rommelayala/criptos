@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CriptosService } from 'src/app/services/criptos.service';
 import { InfoCriptosService } from '../../services/info-criptos.service';
 
 @Component({
