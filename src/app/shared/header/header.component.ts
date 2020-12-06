@@ -11,8 +11,8 @@ export class HeaderComponent implements OnInit {
 
   busqueda: string;
 
-  constructor(public _infoPagina: InfoPaginaService,
-    private router: Router) {
+  constructor(public infoPagina: InfoPaginaService,
+              private router: Router) {
 
   }
 
