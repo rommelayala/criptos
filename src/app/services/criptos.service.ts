@@ -13,8 +13,8 @@ export class CriptosService {
   criptos: any[];
   criptosValues: any[];
   criptosFiltrados: any[];
+  criptosCartera: any[];
  
-  simbolosParaFiltrar: any[] = [ 'BTC', 'ETH', 'COMP', 'MKR'];
 
   constructor(private infocriptos: InfoCriptosService,
               private http: HttpClient) {
@@ -45,7 +45,6 @@ export class CriptosService {
       this.cargarCriptos().then(() => {
         // ejecute despues de tener los productos
         // Aplicar filtro
-        console.log('invocando funcion de filtrado de criptos para filtrar '+ termino);
         this.filtrarCriptos(termino);
       });
     } else {
@@ -57,22 +56,19 @@ export class CriptosService {
 
   filtrarCriptos(simbolo: string) {
 
-    console.log('ya estoy en la funcion de filtrado buscando ' + simbolo);
+    // console.log('ya estoy en la funcion de filtrado buscando ' + simbolo);
     this.criptosFiltrados = [];
     simbolo = simbolo.toLocaleUpperCase();
-    console.log('Las criptos son ' + this.criptos);
+    // console.log('Las criptos son ' + this.criptos);
 
     this.criptos.forEach(prod => {
-
-
       const simboloUpper = prod.symbol.toLocaleUpperCase();
 
       if (prod.symbol.indexOf(simbolo) >= 0 || simboloUpper.indexOf(simbolo) >= 0) {
          this.criptosFiltrados.push(prod);
        }
     });
-
-    console.log(this.criptosFiltrados);
   }
+
 
 }
