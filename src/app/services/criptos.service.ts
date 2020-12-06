@@ -14,23 +14,38 @@ export class CriptosService {
   criptosValues: any[];
   criptosFiltrados: any[];
  
-   simbolosParaFiltrar: any[] = [ 'BTC', 'ETH', 'COMP', 'MKR'];
-   simbolo = 'BTC';
+  simbolosParaFiltrar: any[] = [ 'BTC', 'ETH', 'COMP', 'MKR'];
 
+  constructor(private infocriptos: InfoCriptosService,
+              private http: HttpClient) {
+    this.cargarCriptos();
+  }
 
-  constructor(private infocriptos: InfoCriptosService) {
-    this.buscarCripto(this.simbolo);
+  public cargarCriptos() {
+    return new Promise((resolve, reject) => {
+      this.http.get('https://www.coinbase.com/api/v2/assets/search?base=usd&country=ES&limit=100')
+        .subscribe((resp: any[]) => {
+          // guarda los values del response
+          this.criptosValues = Object.values(resp);
+          // del array de 2 elemetos dame el segundo elemento y guaradlos en criptos
+          this.criptos = this.criptosValues[1];
+          this.cargando = false;
+          resolve();
+        });
+    });
   }
 
   public buscarCripto(termino: string) {
 
-    console.log("gordo de mierda");
-    
-    if (this.criptos.length === 0) {
+    console.log('estoy buscando ' + termino);
+
+    if ( (this.criptos == undefined) || this.criptos.length === 0) {
       // carga productos
-      this.infocriptos.cargarCriptos().then(() => {
+      console.log('Voy a cargar las criptos');
+      this.cargarCriptos().then(() => {
         // ejecute despues de tener los productos
         // Aplicar filtro
+        console.log('invocando funcion de filtrado de criptos para filtrar '+ termino);
         this.filtrarCriptos(termino);
       });
     } else {
@@ -41,15 +56,20 @@ export class CriptosService {
   }
 
   filtrarCriptos(simbolo: string) {
+
+    console.log('ya estoy en la funcion de filtrado buscando ' + simbolo);
     this.criptosFiltrados = [];
     simbolo = simbolo.toLocaleUpperCase();
+    console.log('Las criptos son ' + this.criptos);
 
     this.criptos.forEach(prod => {
-      const simboloUpper = prod.simbolo.toLocaleUpperCase();
 
-      if (prod.simbolo.indexOf(simbolo) >= 0 || simboloUpper.indexOf(simbolo) >= 0) {
-        this.criptosFiltrados.push(prod);
-      }
+
+      const simboloUpper = prod.symbol.toLocaleUpperCase();
+
+      if (prod.symbol.indexOf(simbolo) >= 0 || simboloUpper.indexOf(simbolo) >= 0) {
+         this.criptosFiltrados.push(prod);
+       }
     });
 
     console.log(this.criptosFiltrados);

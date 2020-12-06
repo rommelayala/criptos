@@ -13,6 +13,7 @@ export class InfoCriptosService {
   productosFiltrado: Producto[] = [];
   criptos: any[];
   criptosValues: any[];
+  criptosFiltrado: Producto[] = [];
  
     constructor(private http: HttpClient) {
     this.cargarCriptos();
@@ -27,19 +28,7 @@ export class InfoCriptosService {
           // del array de 2 elemetos dame el segundo elemento y guaradlos en criptos
           this.criptos = this.criptosValues[1];
           this.cargando = false;
-          console.log(this.criptos.length);
-          resolve();
-        });
-    });
-  }
-
-  private cargarProductos() {
-    return new Promise((resolve, reject) => {
-      this.http.get('https://angularfirebase-student-de052.firebaseio.com/productos_idx.json')
-        .subscribe((resp: Producto[]) => {
-          this.productos = resp;
-          this.cargando = false;
-          // console.log(this.productos);
+          console.log(this.criptos.length + "criptos fueron cargadas");
           resolve();
         });
     });
@@ -49,38 +38,41 @@ export class InfoCriptosService {
     return this.http.get(`https://angularfirebase-student-de052.firebaseio.com/productos/${id}.json`);
   }
 
-  buscarProducto(termino: string) {
+   /**
+   *
+   * @param termino
+   * Recibe el termino de busqueda y filtra la cripto en el array de criptos cargado
+   */
+  buscarCripto(termino: string) {
 
-    if (this.productos.length === 0) {
+    if (this.criptos.length === 0) {
       // carga productos
-      this.cargarProductos().then(() => {
+      this.cargarCriptos().then(() => {
         // ejecute despues de tener los productos
         // Aplicar filtro
-        this.filtrarProductos(termino);
+        this.filtrarCriptos(termino);
       });
     } else {
       // aplicar el filtro
-      this.filtrarProductos(termino);
+      this.filtrarCriptos(termino);
 
     }
 
     // console.log(this.productosFiltrado);
   }
 
-  filtrarProductos(termino: string) {
+  filtrarCriptos(termino: string) {
 
-    this.productosFiltrado = [];
-    termino = termino.toLocaleLowerCase();
+    this.criptosFiltrado = [];
+    termino = termino.toLocaleUpperCase();
 
-    this.productos.forEach(prod => {
-      const tituloLower = prod.titulo.toLocaleLowerCase();
+    this.criptos.forEach(crip => {
+      const tituloUpper = crip.symbol.toLocaleUpperCase();
 
-      if (prod.categoria.indexOf(termino) >= 0 || tituloLower.indexOf(termino) >= 0) {
-        this.productosFiltrado.push(prod);
+      if (crip.symbol.indexOf(termino) >= 0 || tituloUpper.indexOf(termino) >= 0) {
+        this.criptosFiltrado.push(crip);
       }
 
     });
-    // throw new Error('Method not implemented.');
   }
-
 }
