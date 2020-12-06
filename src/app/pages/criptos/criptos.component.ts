@@ -9,9 +9,8 @@ import { InfoCriptosService } from '../../services/info-criptos.service';
 })
 export class CriptosComponent implements OnInit {
 
-  constructor(public infoCriptoService: InfoCriptosService,
-              public criptoService: CriptosService) {  
-               
+  constructor(public infoCriptoService: InfoCriptosService
+              ) {
               }
 
   ngOnInit(): void {
