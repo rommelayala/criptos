@@ -1,5 +1,6 @@
 
-export interface CriptoCarteraInterface {
+export interface CriptoOperacionInterface {
+  forEach(arg0: (operacionVigente: any) => void);
   symbol: string;
   name: string;
   plataforma: string;
@@ -7,14 +8,14 @@ export interface CriptoCarteraInterface {
   // precios
   precioCompraUnitario: number;
   precioCostoUnitarioReal: number;
-  precioVentaUnitario: number;
+  precioVentaUnitario?: number;
   // fechas
   fechaCompra: Date;
-  fechaVenta: Date;
+  fechaVenta?: Date;
   comisionCompra: number;
   comisionVenta: number;
   // utilidad
-  utilidadMoneda: number;
-  utilidadPorcentaje: number;
+  utilidadMoneda?: number;
+  utilidadPorcentaje?: number;
 
 }

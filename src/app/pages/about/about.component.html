@@ -1,11 +1,24 @@
 <section class="ae-container-fluid ae-container-fluid--inner rk-portfolio">
 
-  <div class="ae-grid au-xs-ta-center au-mb-4">
+  <!-- <div class="ae-grid au-xs-ta-center au-mb-4">
     <div *ngFor="let item of infoCriptoService.criptosCartera" class="ae-grid__item item-lg-4 ae-kappa au-mb-3">
       <div class="ae-grid__item--alt item-lg-4">
         <h6 class="ae-u-boldest">{{item.name}}</h6>
         <img src='{{item.image_url}}' alt="">
-        <p class="au-lh-3">{{item.latest}} {{item.currency}}</p>
+        <p class="au-lh-3">{{item.latest}} {{item.currency}} y esto mas</p>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="ae-grid au-xs-ta-center au-mb-4">
+    <div *ngFor="let item of infoCriptoService.criptosCarteraOperacionesVigentes"
+      class="ae-grid__item item-lg-4 ae-kappa au-mb-3">
+      <div class="ae-grid__item--alt item-lg-4">
+        <h4 class="ae-u-boldest">{{item.plataforma}}</h4>
+        <h5 class="ae-u-boldest">{{item.name}}</h5>
+        <p class="au-lh-3">{{item.fechaCompra}}</p>
+        <h6 class="ae-u-boldest">{{item.precioCompraUnitario}}-{{item.comisionCompra}}</h6>
+
       </div>
     </div>
   </div>

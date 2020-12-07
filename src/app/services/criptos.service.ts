@@ -18,10 +18,10 @@ export class CriptosService {
 
   constructor(private infocriptos: InfoCriptosService,
               private http: HttpClient) {
-    this.cargarCriptos();
+    this.cargarCriptosCoinbase();
   }
 
-  public cargarCriptos() {
+  public cargarCriptosCoinbase() {
     return new Promise((resolve, reject) => {
       this.http.get('https://www.coinbase.com/api/v2/assets/search?base=usd&country=ES&limit=100')
         .subscribe((resp: any[]) => {
@@ -42,7 +42,7 @@ export class CriptosService {
     if ( (this.criptos == undefined) || this.criptos.length === 0) {
       // carga productos
       console.log('Voy a cargar las criptos');
-      this.cargarCriptos().then(() => {
+      this.cargarCriptosCoinbase().then(() => {
         // ejecute despues de tener los productos
         // Aplicar filtro
         this.filtrarCriptos(termino);
